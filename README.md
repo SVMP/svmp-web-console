@@ -42,7 +42,7 @@ $ ./node_modules/.bin/forever -m 5 server.js
 * Openstack Volume creation ( In progress... )
 
 
-[ScreenShot](https://github.com/SVMP/svmp-web-console/blob/master/screen_shot.png)
+![ScreenShot](https://github.com/SVMP/svmp-web-console/blob/master/screen_shot.png)
 
 
 
