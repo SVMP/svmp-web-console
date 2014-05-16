@@ -42,8 +42,7 @@ $ ./node_modules/.bin/forever -m 5 server.js
 * Openstack Volume creation ( In progress... )
 
 
-![ScreenShot](https://raw.githubusercontent.com/SVMP/svmp-web-console/master/screen_shot.png)
-
+<img src="https://raw.githubusercontent.com/SVMP/svmp-web-console/master/screen_shot.png" alt="Screenshot" border="1"/>
 
 
 ## License
