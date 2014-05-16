@@ -41,8 +41,7 @@ $ ./node_modules/.bin/forever -m 5 server.js
 * Manage Users
 * Openstack Volume creation ( In progress... )
 
-
-<img src="https://raw.githubusercontent.com/SVMP/svmp-web-console/master/screen_shot.png" alt="Screenshot" border="2"/>
+![ScreenShot](https://raw.githubusercontent.com/SVMP/svmp-web-console/master/screen_shot.png)
 
 
 ## License
