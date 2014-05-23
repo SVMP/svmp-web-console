@@ -1,23 +1,23 @@
-<section class="row" data-ng-controller="AuthenticationController">
-	<h2 class="col-md-12 text-center">Sign up</h2>
+<section class="row text-center" data-ng-controller="AuthenticationController">
+    <div class="col-md-12">
+        <h2>Create your account for SVMP</h2>
+        <br/>
+    </div>
 	<div class="col-md-offset-4 col-md-4 col-md-4">
 		<form data-ng-submit="signup()" class="signin form-horizontal" novalidate autocomplete="off">
 			<fieldset>
 				<div class="form-group">
-					<label for="email">Email:</label>
-					<input type="text" id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="Email">
+					<input type="text" id="email" name="email" class="form-control text-center" data-ng-model="credentials.email" placeholder="Email">
 				</div>
 				<div class="form-group">
-					<label for="username">Username:</label>
-					<input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username">
+					<input type="text" id="username" name="username" class="form-control text-center" data-ng-model="credentials.username" placeholder="Username">
 				</div>
 				<div class="form-group">
-					<label for="password">Password:</label>
-					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
+					<input type="password" id="password" name="password" class="form-control text-center" data-ng-model="credentials.password" placeholder="Password">
 				</div>
                 <div class="form-group">
                     <label for="device">Device Type:</label>
-                    <select id="device" class="form-control" data-ng-model="credentials.device_type">
+                    <select id="device" class="form-control text-center" data-ng-model="credentials.device_type">
                         <option ng-selected="credentials.device_type">Nexus 7</option>
                         <option>Samsung Galaxy Note II</option>
                         <option>HTC One</option>
@@ -26,8 +26,10 @@
                 </div>
                 <br/>
 				<div class="text-center form-group">
-					<button type="submit" class="btn btn-lg btn-success">Sign up <i class="glyphicon glyphicon-play-circle"></i></button>&nbsp; or&nbsp;
-					<a href="/#!/signin" class="show-signup">Sign in</a>
+					<button type="submit" class="btn btn-lg btn-success">SIGN UP</button>
+                    <hr/>
+                    &nbsp;already have an account -&nbsp;
+					<a href="/#!/signin" class="show-signup">Login</a>
 				</div>
 				<div data-ng-show="error" class="text-center text-danger">
 					<strong>{{error}}</strong>

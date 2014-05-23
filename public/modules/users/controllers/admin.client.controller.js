@@ -19,15 +19,26 @@
 'use strict';
 
 angular.module('users').controller('AdminController', ['$scope','$rootScope',
-    '$stateParams', '$http', '$location', 'Users', 'Authentication','Volume',
-    function ($scope, $rootScope, $stateParams, $http, $location, Users, Authentication, Volume) {
+    '$stateParams', '$http', '$location', 'Users', 'Authentication','Volume','ngTableParams',
+    function ($scope, $rootScope, $stateParams, $http, $location, Users, Authentication, Volume,ngTableParams) {
 
         $scope.authentication = Authentication;
 
         $scope.listPending = function () {
-            Users.query({approved: 'false'}).$promise.then(function (users) {
+            Users.query({approved: 'false'},function (users) {
                 $scope.users = users;
                 $scope.total = users.length;
+
+                /*$scope.totalCount = $scope.users.length;
+                $scope.tableParams = new ngTableParams({
+                    page: 1,            // show first page
+                    count: 10           // count per page
+                }, {
+                    total: $scope.users.length, // length of data
+                    getData: function ($defer, params) {
+                        $defer.resolve($scope.users.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                    }
+                });*/
             });
         };
 

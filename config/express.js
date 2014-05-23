@@ -36,7 +36,8 @@ var express = require('express'),
     flash = require('connect-flash'),
     config = require('./config'),
     consolidate = require('consolidate'),
-    path = require('path');
+    path = require('path'),
+    csrf = require('csurf');
 
 module.exports = function (db) {
     // Initialize express app
@@ -110,6 +111,9 @@ module.exports = function (db) {
         })
     }));
 
+
+    app.use(csrf());
+
     // use passport session
     app.use(passport.initialize());
     app.use(passport.session());
@@ -123,6 +127,11 @@ module.exports = function (db) {
     app.use(helmet.contentTypeOptions());
     app.use(helmet.ienoopen());
     app.disable('x-powered-by');
+
+    app.use(function(req, res, next) {
+        res.cookie('XSRF-TOKEN', req.csrfToken());
+        next();
+    });
 
     // Setting the app router and static folder
     app.use(express.static(path.resolve('./public')));
@@ -141,17 +150,22 @@ module.exports = function (db) {
         console.error(err.stack);
 
         // Error page
-        res.status(500).render('500', {
+        /*res.status(500).render('500', {
             error: err.stack
+        });*/
+
+        return res.send(500, {
+            message: "Oops, there was an error.  Please try again."
         });
     });
 
     // Assume 404 since no middleware responded
     app.use(function (req, res) {
-        res.status(404).render('404', {
+        res.send(404);
+        /*res.status(404).render('404', {
             url: req.originalUrl,
             error: 'Not Found'
-        });
+        });*/
     });
 
     return app;

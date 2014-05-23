@@ -12,23 +12,23 @@
         <!-- sign in/out -->
         <ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
             <li ui-route="/signup" ng-class="{active: $uiRoute}">
-                <a href="/#!/signup">Signup</a>
+                <a href="/#!/signup"><i class="glyphicon glyphicon-edit">&nbsp;Signup</i></a>
             </li>
             <li class="divider-vertical"></li>
             <li ui-route="/signin" ng-class="{active: $uiRoute}">
-                <a href="/#!/signin">Signin</a>
+                <a href="/#!/signin"><i class="glyphicon glyphicon-log-in">&nbsp;Login</i></a>
             </li>
         </ul>
         <!-- Admin links -->
         <ul class="nav navbar-nav" data-ng-show="authentication.user.roles[0] === 'admin'">
             <li ui-route="/admin/pending" ng-class="{active: $uiRoute}">
-                <a href="/#!/admin/pending">Pending</a></li>
+                <a href="/#!/admin/pending"><i class="glyphicon glyphicon-list">&nbsp;Pending</i></a></li>
             <li ui-route="/admin/approved" ng-class="{active: $uiRoute}">
-                <a href="/#!/admin/approved">Approved</a></li>
+                <a href="/#!/admin/approved"><i class="glyphicon glyphicon-ok-circle">&nbsp;Approved</i></a></li>
 
 
             <li ui-route="/admin/volumes" ng-class="{active: $uiRoute}">
-                <a href="/#!/admin/volumes">Openstack</a></li>
+                <a href="/#!/admin/volumes"><i class="glyphicon glyphicon-cloud-upload">&nbsp;Openstack</i></a></li>
         </ul>
         <!-- User links -->
         <ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
@@ -45,7 +45,7 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="/auth/signout">Signout</a>
+                        <a href="/auth/signout">Logout</a>
                     </li>
                 </ul>
             </li>
