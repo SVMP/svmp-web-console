@@ -30,8 +30,20 @@ var openstack = exports;
  */
 openstack.init = function () {
     var openstackInfo = config.svmp;
-    this.blockClient = PkgCloud.providers.openstack.blockstorage.createClient(openstackInfo);
+    this.blockClient = PkgCloud.providers.openstack.blockstorage.createClient(openstackInfo.openstack);
 };
+
+
+openstack.listVolumes = function() {
+    openstack.blockClient.getVolumes(false, function(err,r) {
+        if(err) {
+            console.log("ERROR: ",err);
+        } else {
+            console.log(r);
+        }
+    });
+};
+
 
 /**
  * Create a Volume for a User
@@ -44,8 +56,8 @@ openstack.createVolumeForUser = function (user) {
     var nme = user.username + "_volume";
     var desc = "Block Storage for: " + user.username;
 
-    var goldSize = config.svmp.volumeSnapId;
-    var goldId = config.svmp.volumeDefaultSize;
+    var goldId = config.svmp.volumeSnapId;
+    var goldSize = config.svmp.volumeDefaultSize;
 
     var opts = {name: nme, size: goldSize, description: desc, snapshotId: goldId };
 
@@ -54,7 +66,7 @@ openstack.createVolumeForUser = function (user) {
             deferred.reject(new Error('Creating Volume: ' + err.message));
         } else {
             user.volume_id = vol.id;
-            deferred.resolve({user: user});
+            deferred.resolve(user);
         }
     });
 

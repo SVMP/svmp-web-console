@@ -18,27 +18,27 @@
  */
 'use strict';
 
-angular.module('users').controller('AdminController', ['$scope','$rootScope',
-    '$stateParams', '$http', '$location', 'Users', 'Authentication','Volume','ngTableParams',
-    function ($scope, $rootScope, $stateParams, $http, $location, Users, Authentication, Volume,ngTableParams) {
+angular.module('users').controller('AdminController', ['$scope', '$rootScope',
+    '$stateParams', '$http', '$location', 'Users', 'Authentication', 'Volume', 'ngTableParams',
+    function ($scope, $rootScope, $stateParams, $http, $location, Users, Authentication, Volume, ngTableParams) {
 
         $scope.authentication = Authentication;
 
         $scope.listPending = function () {
-            Users.query({approved: 'false'},function (users) {
+            Users.query({approved: 'false'}, function (users) {
                 $scope.users = users;
                 $scope.total = users.length;
 
                 /*$scope.totalCount = $scope.users.length;
-                $scope.tableParams = new ngTableParams({
-                    page: 1,            // show first page
-                    count: 10           // count per page
-                }, {
-                    total: $scope.users.length, // length of data
-                    getData: function ($defer, params) {
-                        $defer.resolve($scope.users.slice((params.page() - 1) * params.count(), params.page() * params.count()));
-                    }
-                });*/
+                 $scope.tableParams = new ngTableParams({
+                 page: 1,            // show first page
+                 count: 10           // count per page
+                 }, {
+                 total: $scope.users.length, // length of data
+                 getData: function ($defer, params) {
+                 $defer.resolve($scope.users.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                 }
+                 });*/
             });
         };
 
@@ -81,7 +81,7 @@ angular.module('users').controller('AdminController', ['$scope','$rootScope',
 
             // Delete Volume
             if ($scope.rmvolume) {
-                // TODO: Delete user's Volume here
+                // TODO: Delete user's Volume here?
                 //console.log("Delete Volume");
             }
 
@@ -100,23 +100,33 @@ angular.module('users').controller('AdminController', ['$scope','$rootScope',
             });
         };
 
-        $scope.createVolume = function(user) {
+        $scope.createVolume = function (user) {
             var makeVolume = confirm("Are you sure you want to create a Volume for this User?");
             if (user && makeVolume) {
+
+                /**
+                 * Set the user's volume-id to 'pending' while we try to create it
+                 * this set's the animated bar in the UI
+                 */
                 user.volume_id = "pending";
-                user.$update(function() {
+                user.$update(function () {
                     Volume(user);
                 }, function (err) {
+                    // TODO: handle the case where it fails so we can clear 'pending'
                     $scope.error = err.data.message;
                 });
             }
         };
 
-
-        var unbind = $rootScope.$on('volumeUpdate',function(ev,u) {
-            //console.log("Got event: ", u);
+        /**
+         * Here's where we actually update the user's info. with a volume id
+         * if it was created.
+         * @type {*|function()}
+         */
+        var unbind = $rootScope.$on('volumeUpdate', function (ev, u) {
+            //console.log("GOT USER: ", u);
             if (u) {
-                u.$update(function(){
+                u.$update(function () {
                     Users.query({approved: 'true'}).$promise.then(function (users) {
                         $scope.users = users;
                         $scope.total = users.length;

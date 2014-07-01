@@ -25,7 +25,8 @@ var
     passport = require('passport'),
     User = require('svmp-user-model'),
     lodash = require('lodash'),
-    mail = require('../utils/mail');
+    mail = require('../utils/mail'),
+    openstack = require('../utils/openstack');
 
 /**
  * Get the error message from error object
@@ -219,7 +220,7 @@ exports.update = function (req, res) {
                         message: getErrorMessage(err)
                     });
                 } else {
-                    if(email) {
+                    if (email) {
                         mail.sendToUser(user.email);
                     }
                     res.jsonp(user);
@@ -242,6 +243,30 @@ exports.deleteUser = function (req, res) {
         }
     });
 };
+
+exports.createVolume = function (req, res) {
+    var user_id = req.body.uid;
+    User.findById(user_id, function (err, user) {
+        if (err) {
+            return res.send(400, {
+                message: getErrorMessage(err)
+            });
+        } else {
+            openstack.init();
+            openstack.createVolumeForUser(user)
+                .then(function (vol) {
+                    // Send back info to browser to update UI
+                    res.jsonp({user: user._id, volid: user.volume_id});
+                },
+                function (err) {
+                    return res.send(400, {
+                        message: getErrorMessage(err)
+                    });
+                });
+        }
+    });
+};
+
 
 /**
  * Require login routing middleware

@@ -49,4 +49,6 @@ module.exports = function(app) {
         .get(users.requiresLogin, users.requiresAdmin, users.read)
         .delete(users.requiresLogin, users.requiresAdmin, users.deleteUser)
         .put(users.requiresLogin, users.requiresAdmin, users.update);
+
+    app.route('/users/create/volume').post(users.requiresLogin, users.requiresAdmin,users.createVolume);
 };
