@@ -46,7 +46,7 @@ exports.sendToUser = function (email) {
         to: email, // list of receivers
         subject: "SVMP Account Approved",
         text: "Your SVMP account has been approved."
-    }
+    };
 
     mailIt(opts);
 };
@@ -57,7 +57,7 @@ exports.sendToAdmin = function () {
         to: config.svmp.admincontact, // list of receivers
         subject: "SVMP: Pending user account",
         text: "A User has registered with SVMP. Please check the SVMP admin console for pending SVMP accounts"
-    }
+    };
 
     mailIt(opts);
 };

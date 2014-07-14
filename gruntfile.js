@@ -150,7 +150,7 @@ module.exports = function (grunt) {
             done = this.async();
 
         if (!mongoose.connection.db) {
-            console.log("using db: ", config.db);
+            console.log('using db: ', config.db);
             mongoose.connect(config.db);
         }
 
@@ -169,12 +169,12 @@ module.exports = function (grunt) {
                         console.log(err);
                         mongoose.connection.close(done);
                     } else {
-                        console.log("Created user: ", default_admin);
+                        console.log('Created user: ', default_admin);
                         mongoose.connection.close(done);
                     }
                 });
             } else {
-                console.log("Default admin already exists!");
+                console.log('Default admin already exists!');
                 mongoose.connection.close(done);
             }
         });
@@ -189,7 +189,7 @@ module.exports = function (grunt) {
             done = this.async();
 
         if (!mongoose.connection.db) {
-            console.log("using db: ", config.db);
+            console.log('using db: ', config.db);
             mongoose.connect(config.db);
         }
 
@@ -204,13 +204,13 @@ module.exports = function (grunt) {
                             console.log(errR);
                             mongoose.connection.close(done);
                         } else {
-                            console.log("Remove default admin: ", result);
+                            console.log('Remove default admin: ', result);
                             mongoose.connection.close(done);
                         }
                     });
 
                 } else {
-                    console.log("Default admin account does not exist");
+                    console.log('Default admin account does not exist');
                     mongoose.connection.close(done);
                 }
             }
@@ -227,7 +227,7 @@ module.exports = function (grunt) {
             done = this.async();
 
         if (!mongoose.connection.db) {
-            console.log("using db: ", config.db);
+            console.log('using db: ', config.db);
             mongoose.connect(config.db);
         }
         var TOTAL = 40;
@@ -241,7 +241,7 @@ module.exports = function (grunt) {
                     password: PWD
                 }, function (err, r) {
                     if (err) {
-                        console.log("Error: ", err);
+                        console.log('Error: ', err);
                         mongoose.connection.close(done);
                     } else {
                         // Recurse
@@ -250,7 +250,7 @@ module.exports = function (grunt) {
                 });
             } else {
                 // we're done
-                console.log("Finished");
+                console.log('Finished');
                 mongoose.connection.close(done);
             }
         };
@@ -266,7 +266,8 @@ module.exports = function (grunt) {
     grunt.registerTask('lint', ['jshint', 'csslint']);
 
     // Build task(s).
-    grunt.registerTask('build', ['jshint', 'csslint', 'loadConfig' , 'uglify', 'cssmin']);
+    // Builds minified version for production in /public/dist
+    //grunt.registerTask('build', ['jshint', 'csslint', 'loadConfig' , 'uglify', 'cssmin']);
 
     // Test task.
     grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);

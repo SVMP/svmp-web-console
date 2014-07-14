@@ -26,49 +26,45 @@ var
     fs = require('fs'),
     path = require('path');
 
+
 /**
  * Module init function.
  */
 module.exports = function () {
-    /**
-     * Before we begin, lets set the environment variable
-     * We'll Look for a valid NODE_ENV variable and if one cannot be found load the development NODE_ENV
-     */
-    glob('./config/env/' + process.env.NODE_ENV + '.js', {
-        sync: true
-    }, function (err, environmentFiles) {
-        console.log();
 
-        /**
-         * Create the local configuration file if it doesn't exist
-         */
-        fs.exists(path.resolve(__dirname,'./config-local.js'), function (exists) {
-            if(!exists) {
-                console.log('local configuration file not found. Creating...');
-                fs.writeFileSync(path.resolve(__dirname,'./config-local.js'),
-                    fs.readFileSync(path.resolve(__dirname,'./_config.local.template.js')));
+    try {
+        // Check for the config-local.  If it's not there, we create in the 'catch' and tell the user
+        // to fill it in
+        require('./config-local');
+        glob('./config/env/' + process.env.NODE_ENV + '.js', {
+            sync: true
+        }, function (err, environmentFiles) {
+            console.log();
+            if (!environmentFiles.length) {
+                if (process.env.NODE_ENV) {
+                    console.log('\x1b[31m', 'No configuration file found for "' + process.env.NODE_ENV + '" environment using development instead');
+                } else {
+                    console.log('\x1b[31m', 'NODE_ENV is not defined! Using default development environment');
+                }
+                process.env.NODE_ENV = 'development';
             } else {
-                console.log('existing local configuration file found');
+                console.log('\x1b[7m', 'Application loaded using the "' + process.env.NODE_ENV + '" environment configuration');
             }
+            console.log('\x1b[0m');
         });
+        /**
+         * Add our server node extensions
+         */
+        require.extensions['.server.controller.js'] = require.extensions['.js'];
+        require.extensions['.server.model.js'] = require.extensions['.js'];
+        require.extensions['.server.routes.js'] = require.extensions['.js'];
+    } catch (err) {
+        console.log('\x1b[31m', 'The needed local configuration file was not found. Creating it...');
 
-        if (!environmentFiles.length) {
-            if (process.env.NODE_ENV) {
-                console.log('\x1b[31m', 'No configuration file found for "' + process.env.NODE_ENV + '" environment using development instead');
-            } else {
-                console.log('\x1b[31m', 'NODE_ENV is not defined! Using default development environment');
-            }
-            process.env.NODE_ENV = 'development';
-        } else {
-            console.log('\x1b[7m', 'Application loaded using the "' + process.env.NODE_ENV + '" environment configuration');
-        }
-        console.log('\x1b[0m');
-    });
+        var configStub = fs.readFileSync(path.resolve(__dirname, '_config.local.template.js'));
+        fs.writeFileSync(__dirname + '/config-local.js', configStub);
+        console.log('\x1b[31m', 'Created config-local. Update with your local settings and restart the app');
 
-    /**
-     * Add our server node extensions
-     */
-    require.extensions['.server.controller.js'] = require.extensions['.js'];
-    require.extensions['.server.model.js'] = require.extensions['.js'];
-    require.extensions['.server.routes.js'] = require.extensions['.js'];
+        process.exit(1);
+    }
 };

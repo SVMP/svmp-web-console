@@ -20,10 +20,9 @@
 
 /**
  * Template for local configuration file
- * @type {{sessionSecret: string, sendmail: boolean, smtp: {username: string, password: string}, admincontact: string, openstack: {authUrl: string, username: string, password: string, tenantId: string, tenantName: string, region: string}}}
  */
 module.exports = {
-    sessionSecret: 'make this a long secret',
+    sessionSecret: 'make this a long secret code',
 
     sendmail: true,
     smtp: {username: '', password: ''},
@@ -31,6 +30,10 @@ module.exports = {
 
     volumeSnapId: '',
     volumeDefaultSize: 6,
+
+    db_development: 'mongodb://localhost/svmp-management-db-dev',
+    db_production: 'mongodb://localhost/svmp-management-db',
+    db_test: 'mongodb://localhost/svmp-management-db-test',
 
     openstack: {
         authUrl: "http://localhost:5000/",

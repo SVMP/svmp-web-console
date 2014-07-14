@@ -80,10 +80,10 @@ angular.module('users').controller('AdminController', ['$scope', '$rootScope',
         $scope.deleteUser = function (user) {
 
             // Delete Volume
-            if ($scope.rmvolume) {
+            /*if ($scope.rmvolume) {
                 // TODO: Delete user's Volume here?
                 //console.log("Delete Volume");
-            }
+            }*/
 
             var deleteuser = confirm("Are you sure you want to deny this user? If so, it will remove the user's account");
             if (deleteuser && user) {

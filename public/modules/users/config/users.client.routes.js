@@ -54,6 +54,6 @@ angular.module('users').config(['$stateProvider',
             state('uservolumes', {
                 url: '/admin/volumes',
                 templateUrl: 'modules/users/views/openstack/volumes.client.view.html'
-            })
+            });
     }
 ]);

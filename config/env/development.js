@@ -18,8 +18,11 @@
  */
 'use strict';
 
+var
+    configlocal = require('../config-local');
+
 module.exports = {
-	db: 'mongodb://localhost/svmp-management-db-dev',
+	db: configlocal.db_development,
 	app: {
 		title: 'svmp-web-console - Development Environment'
 	}

@@ -21,27 +21,6 @@
 angular.module('users').factory('Volume', ['$q', '$timeout', '$rootScope', '$http',
     function ($q, $timeout, $rootScope, $http) {
         return function (user) {
-
-            /*
-              Used for testing UI
-
-             var makeId = function () {
-             var text = "";
-             var possible = "abcdefghijklmnopqrstuvwxyz0123456789";
-
-             for (var i = 0; i < 30; i++)
-             text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-             return text;
-             };*/
-
-
-            /*$timeout(function () {
-             // Simulated slow fetch from an HTTP server
-             user.volume_id = makeId();
-             $rootScope.$broadcast('volumeUpdate', user);
-             }, 10000);*/
-
             /**
              * Tell the backend to create a Volume for the user
              * When we get a volumeid back, update the user's information
@@ -55,10 +34,6 @@ angular.module('users').factory('Volume', ['$q', '$timeout', '$rootScope', '$htt
                     // success
                     user.volume_id = response.data.volid;
                     $rootScope.$broadcast('volumeUpdate', user);
-                },
-                function (response) { // optional
-                    // failed
-                    $scope.error = err.data.message;
                 }
             );
 

@@ -17,15 +17,15 @@ $ npm install
 
 ## Running
 
-On first run config/config-local.js will be created. Set your private settings here.
+On first run, config/config-local.js will be created. Set your private settings here. Then restart the app
 
-Development:
+Development mode:
 
 ```
 $ grunt
 ```
 
-Production:
+Production mode:
 
 Set NODE_ENV=production
 

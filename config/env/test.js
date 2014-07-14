@@ -18,8 +18,11 @@
  */
 'use strict';
 
+var
+    configlocal = require('../config-local');
+
 module.exports = {
-	db: 'mongodb://localhost/svmp-management-db-test',
+	db: configlocal.db_test,
 	port: 3001,
 	app: {
 		title: 'svmp-web-console - Test Environment'
