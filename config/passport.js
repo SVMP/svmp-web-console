@@ -19,7 +19,7 @@
 'use strict';
 
 var passport = require('passport'),
-    User = require('svmp-user-model'),
+    User = require('./svmp').user,
     path = require('path'),
     config = require('./config');
 

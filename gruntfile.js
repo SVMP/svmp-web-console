@@ -146,15 +146,17 @@ module.exports = function (grunt) {
             init = require('./config/init')(),
             config = require('./config/config'),
             mongoose = require('mongoose'),
-            User = require('svmp-user-model'),
+            svmp = require('./config/svmp'),
             done = this.async();
+        svmp.setup(mongoose);
+
 
         if (!mongoose.connection.db) {
             console.log('using db: ', config.db);
             mongoose.connect(config.db);
         }
 
-        User.find({roles: 'admin'}, function (err, admins) {
+        svmp.user.find({roles: 'admin'}, function (err, admins) {
             if (admins && admins.length === 0) {
                 var default_admin = {
                     username: 'mitre',
@@ -164,7 +166,7 @@ module.exports = function (grunt) {
                     roles: ['admin']
                 };
 
-                User.create(default_admin, function (err, r) {
+                svmp.user.create(default_admin, function (err, r) {
                     if (err) {
                         console.log(err);
                         mongoose.connection.close(done);
@@ -185,15 +187,16 @@ module.exports = function (grunt) {
             init = require('./config/init')(),
             config = require('./config/config'),
             mongoose = require('mongoose'),
-            User = require('svmp-user-model'),
+            svmp = require('./config/svmp'),
             done = this.async();
 
+        svmp.setup(mongoose);
         if (!mongoose.connection.db) {
             console.log('using db: ', config.db);
             mongoose.connect(config.db);
         }
 
-        User.findOne({username: 'mitre'}, function (err, defaultAdmin) {
+        svmp.user.findOne({username: 'mitre'}, function (err, defaultAdmin) {
             if (err) {
                 console.log(err);
                 mongoose.connection.close(done);
@@ -222,10 +225,11 @@ module.exports = function (grunt) {
             init = require('./config/init')(),
             config = require('./config/config'),
             mongoose = require('mongoose'),
-            User = require('svmp-user-model'),
+            svmp = require('./config/svmp'),
             Faker = require('Faker'),
             done = this.async();
 
+        svmp.setup(mongoose);
         if (!mongoose.connection.db) {
             console.log('using db: ', config.db);
             mongoose.connect(config.db);
@@ -235,7 +239,7 @@ module.exports = function (grunt) {
 
         var createUser = function (num, done) {
             if (num < TOTAL) {
-                User.create({
+                svmp.user.create({
                     username: Faker.Internet.userName(),
                     email: Faker.Internet.email(),
                     password: PWD

@@ -22,7 +22,8 @@
  */
 var init = require('./config/init')(),
     config = require('./config/config'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    svmp = require('./config/svmp');
 
 
 /**
@@ -35,6 +36,9 @@ var init = require('./config/init')(),
 
 // Bootstrap db connection
 var db = mongoose.connect(config.db);
+
+// Setup the model
+svmp.setup(mongoose);
 
 // Init the express application
 var app = require('./config/express')(db);

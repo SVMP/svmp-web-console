@@ -23,7 +23,7 @@
  */
 var
     passport = require('passport'),
-    User = require('svmp-user-model'),
+    User = require('../../config/svmp').user,
     lodash = require('lodash'),
     mail = require('../utils/mail'),
     openstack = require('../utils/openstack');
