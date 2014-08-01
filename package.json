@@ -3,18 +3,24 @@
     "description": "Web console for SVMP",
     "version": "0.0.1",
     "author": "Dave Bryson",
+    "contributors": [
+        "Dave Bryson",
+        "Joe Portner"
+    ],
     "engines": {
         "node": "0.10.x",
         "npm": "1.4.x"
     },
     "scripts": {
         "start": "grunt",
-        "test": "grunt test",
+        "test": "npm run test-config && grunt test",
+        "test-config": "cp -R -u -p ./config/_config.local.template.js ./config/config-local.js",
         "postinstall": "bower install --config.interactive=false"
     },
     "dependencies": {
         "svmp-user-model": "git+https://github.com/SVMP/svmp-user-model.git",
         "pkgcloud": "git+https://github.com/SVMP/pkgcloud.git#0.9.4-svmp",
+        "aws-sdk": "~2.0.8",
         "q": "latest",
         "nodemailer": "latest",
         "express": "~4.1.0",

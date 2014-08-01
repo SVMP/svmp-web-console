@@ -28,19 +28,36 @@ module.exports = {
     smtp: {username: '', password: ''},
     admincontact: 'someone@mitre.org',
 
+    // volume information for cloud platform use
     volumeSnapId: '',
-    volumeDefaultSize: 6,
+    volumeDefaultSize: 6, // only required for openstack
 
-    db_development: 'mongodb://localhost/svmp-management-db-dev',
-    db_production: 'mongodb://localhost/svmp-management-db',
-    db_test: 'mongodb://localhost/svmp-management-db-test',
+    // if you're running the Node SVMP Proxy on a different machine, you
+    // should change these URLs to point to that machine's Mongo database
+    db_development: 'mongodb://localhost/svmp_proxy_db_dev',
+    db_production: 'mongodb://localhost/svmp_proxy_db',
+    db_test: 'mongodb://localhost/svmp_proxy_db_test',
 
+    // What cloud platform to use for launching VMs
+    // Valid values: openstack, aws
+    cloud_platform: "openstack",
+
+    // OpenStack cloud connection details
     openstack: {
+        // only required if 'cloud_platform' is set to 'openstack'
         authUrl: "http://localhost:5000/",
         username: "test",
         password: "test",
         tenantId: "0123456789abcdef0123456789abcdef",
         tenantName: "test",
         region: "RegionOne"
+    },
+
+    // Amazon Web Services cloud connection details
+    aws: {
+        // only required if 'cloud_platform' is set to 'aws'
+        "accessKeyId": "",
+        "secretAccessKey": "",
+        "availabilityZone": "us-east-1a"
     }
 };

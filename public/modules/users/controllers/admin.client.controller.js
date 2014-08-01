@@ -110,7 +110,7 @@ angular.module('users').controller('AdminController', ['$scope', '$rootScope',
                  */
                 user.volume_id = "pending";
                 user.$update(function () {
-                    Volume(user);
+                    new Volume(user);
                 }, function (err) {
                     // TODO: handle the case where it fails so we can clear 'pending'
                     $scope.error = err.data.message;

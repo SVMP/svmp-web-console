@@ -156,7 +156,7 @@ module.exports = function (grunt) {
             mongoose.connect(config.db);
         }
 
-        svmp.user.find({roles: 'admin'}, function (err, admins) {
+        svmp.user.find({username: 'mitre', roles: 'admin'}, function (err, admins) {
             if (admins && admins.length === 0) {
                 var default_admin = {
                     username: 'mitre',
@@ -274,5 +274,5 @@ module.exports = function (grunt) {
     //grunt.registerTask('build', ['jshint', 'csslint', 'loadConfig' , 'uglify', 'cssmin']);
 
     // Test task.
-    grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
+    grunt.registerTask('test', ['env:test', 'jshint', 'csslint', 'mochaTest', 'karma:unit']);
 };
