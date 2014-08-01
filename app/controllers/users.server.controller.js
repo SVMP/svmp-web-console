@@ -26,7 +26,7 @@ var
     User = require('../../config/svmp').user,
     lodash = require('lodash'),
     mail = require('../utils/mail'),
-    openstack = require('../utils/openstack');
+    cloud = require('../cloud/main').platform;
 
 /**
  * Get the error message from error object
@@ -252,8 +252,8 @@ exports.createVolume = function (req, res) {
                 message: getErrorMessage(err)
             });
         } else {
-            openstack.init();
-            openstack.createVolumeForUser(user)
+            cloud.init();
+            cloud.createVolumeForUser(user)
                 .then(function (vol) {
                     // Send back info to browser to update UI
                     res.jsonp({user: user._id, volid: user.volume_id});

@@ -156,7 +156,7 @@ module.exports = function (grunt) {
             mongoose.connect(config.db);
         }
 
-        svmp.user.find({roles: 'admin'}, function (err, admins) {
+        svmp.user.find({username: 'mitre', roles: 'admin'}, function (err, admins) {
             if (admins && admins.length === 0) {
                 var default_admin = {
                     username: 'mitre',

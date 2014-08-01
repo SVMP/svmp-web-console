@@ -53,7 +53,7 @@ openstack.listVolumes = function() {
 openstack.createVolumeForUser = function (user) {
     var deferred = Q.defer();
 
-    var nme = user.username + "_volume";
+    var nme = "svmp-user-volume_" + user.username;
     var desc = "Block Storage for: " + user.username;
 
     var goldId = config.svmp.volumeSnapId;

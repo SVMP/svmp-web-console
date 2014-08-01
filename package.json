@@ -3,6 +3,10 @@
     "description": "Web console for SVMP",
     "version": "0.0.1",
     "author": "Dave Bryson",
+    "contributors": [
+        "Dave Bryson",
+        "Joe Portner"
+    ],
     "engines": {
         "node": "0.10.x",
         "npm": "1.4.x"
@@ -15,6 +19,7 @@
     "dependencies": {
         "svmp-user-model": "git+https://github.com/SVMP/svmp-user-model.git",
         "pkgcloud": "git+https://github.com/SVMP/pkgcloud.git#0.9.4-svmp",
+        "aws-sdk": "~2.0.8",
         "q": "latest",
         "nodemailer": "latest",
         "express": "~4.1.0",
