@@ -13,7 +13,8 @@
     },
     "scripts": {
         "start": "grunt",
-        "test": "grunt test",
+        "test": "npm run test-config && grunt test",
+        "test-config": "cp -R -u -p ./config/_config.local.template.js ./config/config-local.js",
         "postinstall": "bower install --config.interactive=false"
     },
     "dependencies": {
